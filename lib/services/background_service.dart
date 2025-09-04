@@ -70,7 +70,6 @@ class BackgroundLocationService {
         if (position != null) {
           await _sendLocationToServer(position);
 
-          // Update notification with current location
           service.invoke(
             'setAsForeground',
             {
@@ -163,7 +162,6 @@ class BackgroundLocationService {
 
       if (success) {
         print('Background location update sent successfully');
-        // Store successful update count
         final updateCount = prefs.getInt('background_updates') ?? 0;
         await prefs.setInt('background_updates', updateCount + 1);
       } else {

@@ -17,21 +17,20 @@ class GeofenceController extends GetxController {
   }
 
   void _setupDefaultGeofences() {
-    // Add some sample geofences - replace with your actual zones
     geofences.addAll([
       GeofenceZone(
         id: '1',
         name: 'Office Zone',
         latitude: 1.3565952,
         longitude: 103.809024,
-        radius: 100, // 100 meters
+        radius: 100, 
       ),
       GeofenceZone(
         id: '2',
         name: 'Home Zone',
-        latitude: 1.3521, // Replace with actual coordinates
+        latitude: 1.3521,
         longitude: 103.8198,
-        radius: 50, // 50 meters
+        radius: 50, 
       ),
     ]);
   }
@@ -39,7 +38,6 @@ class GeofenceController extends GetxController {
   void _startGeofenceMonitoring() {
     final LocationController locationController = Get.find<LocationController>();
     
-    // Monitor location changes for geofence detection
     ever(locationController.currentLatitude, (_) => _checkGeofences());
     ever(locationController.currentLongitude, (_) => _checkGeofences());
   }
@@ -118,7 +116,7 @@ class GeofenceZone {
   final String name;
   final double latitude;
   final double longitude;
-  final double radius; // in meters
+  final double radius; 
 
   GeofenceZone({
     required this.id,

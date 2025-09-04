@@ -40,9 +40,8 @@ class SettingsScreen extends StatelessWidget {
                     title: const Text('Auto Start Tracking'),
                     subtitle: const Text('Start tracking when app opens'),
                     trailing: Switch(
-                      value: true, // You can make this configurable
+                      value: true, 
                       onChanged: (value) {
-                        // Implement toggle functionality
                       },
                     ),
                   ),
@@ -53,7 +52,6 @@ class SettingsScreen extends StatelessWidget {
                     subtitle: const Text('Every 30 seconds'),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
-                      // Show interval selection dialog
                     },
                   ),
                   const Divider(height: 1),

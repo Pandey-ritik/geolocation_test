@@ -36,22 +36,22 @@ class ConnectivityService extends GetxService {
 
   Future<void> _checkConnectivity() async {
     if (isCheckingConnection.value) return;
-    
+
     try {
       isCheckingConnection.value = true;
-      
+
       final result = await InternetAddress.lookup('google.com')
           .timeout(const Duration(seconds: 5));
-      
+
       final wasConnected = isConnected.value;
       final nowConnected = result.isNotEmpty && result[0].rawAddress.isNotEmpty;
-      
+
       isConnected.value = nowConnected;
-      
+
       if (nowConnected) {
         lastConnectedTime.value = DateTime.now();
       }
-      
+
       if (!wasConnected && nowConnected) {
         Get.snackbar(
           'Connection Restored',
@@ -76,7 +76,7 @@ class ConnectivityService extends GetxService {
     } catch (e) {
       final wasConnected = isConnected.value;
       isConnected.value = false;
-      
+
       if (wasConnected) {
         print('Connection check failed: $e');
       }
@@ -100,7 +100,8 @@ class ConnectivityService extends GetxService {
     if (isConnected.value) {
       return 'Connected';
     } else {
-      final timeSinceLastConnection = DateTime.now().difference(lastConnectedTime.value);
+      final timeSinceLastConnection =
+          DateTime.now().difference(lastConnectedTime.value);
       if (timeSinceLastConnection.inMinutes < 1) {
         return 'Disconnected (${timeSinceLastConnection.inSeconds}s ago)';
       } else if (timeSinceLastConnection.inHours < 1) {

@@ -55,7 +55,6 @@ class ApiService {
         final data = jsonDecode(response.body);
         print(data['token']);
         
-        // Handle different response structures
         if (data['success'] == true || data['status'] == 'success' || data['token'] != null) {
           final user = UserModel(
             userId: data['user_id'] ?? data['id'] ?? _extractUserIdFromEmail(email),
@@ -137,13 +136,12 @@ class ApiService {
   }
 
   static int _extractUserIdFromEmail(String email) {
-    // Extract numeric part from email like NAV1003
     final RegExp regExp = RegExp(r'\d+');
     final match = regExp.firstMatch(email);
     if (match != null) {
       return int.tryParse(match.group(0)!) ?? 2035;
     }
-    return 2035; // Default user ID
+    return 2035; 
   }
 
   static Future<bool> testConnection() async {

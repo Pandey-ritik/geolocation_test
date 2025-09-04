@@ -13,14 +13,14 @@ import 'utils/app_colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   await NotificationService.initialize();
   await BackgroundLocationService.initializeService();
-  
+
   Get.put(AuthController());
   Get.put(LocationController());
   Get.put(ConnectivityService());
-  
+
   runApp(const MyApp());
 }
 
@@ -74,7 +74,7 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> 
+class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   final AuthController authController = Get.find<AuthController>();
   late AnimationController _animationController;
@@ -92,7 +92,7 @@ class _SplashScreenState extends State<SplashScreen>
       duration: const Duration(seconds: 2),
       vsync: this,
     );
-    
+
     _scaleAnimation = Tween<double>(
       begin: 0.0,
       end: 1.0,
@@ -100,18 +100,18 @@ class _SplashScreenState extends State<SplashScreen>
       parent: _animationController,
       curve: Curves.elasticOut,
     ));
-    
+
     _animationController.forward();
   }
 
   Future<void> _initializeApp() async {
     try {
       await _requestPermissions();
-      
+
       await authController.checkLoginStatus();
-      
+
       await Future.delayed(const Duration(seconds: 3));
-      
+
       if (authController.isLoggedIn.value) {
         Get.offAll(() => const HomeScreen());
       } else {
@@ -131,9 +131,11 @@ class _SplashScreenState extends State<SplashScreen>
       Permission.notification,
     ].request();
 
-    final locationGranted = permissions[Permission.location]?.isGranted ?? false;
-    final locationAlwaysGranted = permissions[Permission.locationAlways]?.isGranted ?? false;
-    
+    final locationGranted =
+        permissions[Permission.location]?.isGranted ?? false;
+    final locationAlwaysGranted =
+        permissions[Permission.locationAlways]?.isGranted ?? false;
+
     if (!locationGranted || !locationAlwaysGranted) {
       Get.snackbar(
         'Permissions Required',
